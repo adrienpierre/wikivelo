@@ -1180,8 +1180,10 @@ function generateRuleBody(baseClass) {
 
 function buildStylesCSS() {
   const tokenSet = new Set();
-  for (const rel of FILES_ORDER) {
-    const content = fs.readFileSync(path.join(ROOT_DIR, rel), 'utf-8');
+  for (const rel of [...FILES_ORDER, 'index.html', '404.html']) {
+    const full = path.join(ROOT_DIR, rel);
+    if (!fs.existsSync(full)) continue;
+    const content = fs.readFileSync(full, 'utf-8');
     const matches = content.match(/[A-Za-z0-9_:/\-\[\].%]+/g) || [];
     for (const m of matches) tokenSet.add(m);
   }

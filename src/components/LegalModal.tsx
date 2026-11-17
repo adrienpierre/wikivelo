@@ -202,11 +202,19 @@ export function LegalModal({
                 </h3>
                 <p>
                   <strong className="text-amber-300">Hébergeur :</strong>{' '}
-                  [À compléter : ex. Vercel Inc., Netlify Inc., Cloudflare Pages ou OVH SAS]
+                  Netlify, Inc.
                 </p>
                 <p>
-                  <strong className="text-amber-300">Adresse & Contact hébergeur :</strong>{' '}
-                  [À compléter : Adresse postale et site web de l’hébergeur choisi]
+                  <strong className="text-amber-300">Adresse &amp; Contact hébergeur :</strong>{' '}
+                  512 2nd Street, Suite 200, San Francisco, CA 94107, États-Unis •{' '}
+                  <a
+                    href="https://www.netlify.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-sky-400 hover:underline"
+                  >
+                    https://www.netlify.com
+                  </a>
                 </p>
               </div>
 

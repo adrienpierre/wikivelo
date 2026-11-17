@@ -88,12 +88,35 @@ if (runLint) {
     }
   }
 
+  // Also verify CSS classes inside index.html & 404.html are compiled into dist/styles.css
+  for (const htmlFile of ['index.html', '404.html']) {
+    const htmlRaw = fs.readFileSync(path.join(ROOT_DIR, htmlFile), 'utf8');
+    const htmlMatches = htmlRaw.match(/class="([^"]+)"/g) || [];
+    for (const m of htmlMatches) {
+      const inside = m.slice('class="'.length, -1);
+      for (const tok of inside.split(/\s+/)) {
+        if (!tok || knownCss.has(tok) || tok.startsWith('space-y-')) continue;
+        const escaped = tok.replace(/([!:\/.\[\]%#(),])/g, '\\$1');
+        if (!cssCode.includes(`.${escaped}`)) {
+          missingCss.push(`${htmlFile}: ${tok}`);
+        }
+      }
+    }
+  }
+
   assert(missingCss.length === 0, `Missing CSS classes in dist/styles.css:\n  ${missingCss.join('\n  ')}`);
 
-  for (const cfgFile of ['index.html', 'vercel.json', 'netlify.toml', 'server.mjs']) {
+  for (const cfgFile of ['index.html', '404.html', 'vercel.json', 'netlify.toml', 'server.mjs']) {
     const cfgContent = fs.readFileSync(path.join(ROOT_DIR, cfgFile), 'utf8');
     assert(!/fonts\.googleapis\.com|fonts\.gstatic\.com/i.test(cfgContent), `External font server reference in ${cfgFile}`);
   }
+
+  // Netlify production readiness checks
+  const netlifyToml = fs.readFileSync(path.join(ROOT_DIR, 'netlify.toml'), 'utf8');
+  assert(netlifyToml.includes('NODE_VERSION = "24"'), 'netlify.toml missing NODE_VERSION = "24"');
+  assert(netlifyToml.includes('from = "/src/*"') && netlifyToml.includes('status = 404'), 'netlify.toml missing 404 redirect blocking /src/*');
+  assert(fs.existsSync(path.join(ROOT_DIR, '404.html')), '404.html missing for Netlify redirects');
+  assert(fs.existsSync(path.join(ROOT_DIR, '.gitignore')), '.gitignore missing');
 
   // Mobile-first compliance checks (viewport-fit, dvh, anti-zoom 16px, touch-action, safe area, @media hover)
   const htmlContent = fs.readFileSync(path.join(ROOT_DIR, 'index.html'), 'utf8');
@@ -582,6 +605,7 @@ if (runTests) {
 
   await clickEl(findBtn('Mentions Légales'));
   assert(root.textContent.includes('[À compléter'), 'Legal placeholder missing');
+  assert(root.textContent.includes('Netlify, Inc.'), 'Legal Mentions missing configured Netlify host');
   await clickEl(findBtn('Crédits & Licences'));
   assert(root.textContent.includes('FILTRE STRICT : CC0 / PD / CC BY / CC BY-SA'), 'Credits tab missing license filter');
   assert(
