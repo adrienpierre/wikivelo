@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0f172a"/>
+      <stop offset="100%" stop-color="#020617"/>
+    </linearGradient>
+    <linearGradient id="stripe" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#38bdf8"/>
+      <stop offset="35%" stop-color="#f43f5e"/>
+      <stop offset="70%" stop-color="#facc15"/>
+      <stop offset="100%" stop-color="#22c55e"/>
+    </linearGradient>
+  </defs>
+  <rect width="64" height="64" rx="14" fill="url(#bg)"/>
+  <rect x="0" y="0" width="64" height="5" rx="2" fill="url(#stripe)"/>
+  <circle cx="32" cy="34" r="20" fill="none" stroke="#f59e0b" stroke-width="4"/>
+  <circle cx="32" cy="34" r="5" fill="#f8fafc"/>
+  <line x1="32" y1="14" x2="32" y2="29" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="32" y1="39" x2="32" y2="54" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="12" y1="34" x2="27" y2="34" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="37" y1="34" x2="52" y2="34" stroke="#f59e0b" stroke-width="2.5" stroke-linecap="round"/>
+  <line x1="18" y1="20" x2="28" y2="30" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+  <line x1="46" y1="48" x2="36" y2="38" stroke="#38bdf8" stroke-width="2" stroke-linecap="round"/>
+</svg>
