@@ -1,0 +1,15 @@
+{
+  "name": "velolegends-tcg",
+  "private": true,
+  "version": "2.0.0",
+  "description": "VeloLegends TCG — Jeu de cartes à collectionner et Quiz tactique cyclisme (Route, VTT, Piste, Cyclo-cross)",
+  "type": "module",
+  "scripts": {
+    "dev": "node server.mjs",
+    "build": "node build.mjs",
+    "start": "node server.mjs",
+    "lint": "node scripts/check-project.mjs --lint",
+    "typecheck": "node scripts/check-project.mjs --typecheck",
+    "test": "node scripts/check-project.mjs --all"
+  }
+}
